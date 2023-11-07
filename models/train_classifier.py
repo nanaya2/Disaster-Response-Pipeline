@@ -35,19 +35,19 @@ def load_data(database_filepath):
 
 def tokenize(text):
     """ 
-    Function to tokenize a text
+    Function to tokenize and lemmatize
     Input: text
     Output: clean tokens
     """  
     
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
-
+   
     clean_tokens = []
     for tok in tokens:
         clean_tok = lemmatizer.lemmatize(tok).lower().strip()
         clean_tokens.append(clean_tok)
-
+    
     return clean_tokens
 
 def build_model():
@@ -57,7 +57,7 @@ def build_model():
     Output: cv (scikit-learn GridSearchCV): Grid search model object
     """     
     pipeline = Pipeline([
-        ('vect', CountVectorizer()),      
+        ('vect', CountVectorizer(tokenizer=tokenize)),      
         ('tfidf', TfidfTransformer()),
         ('clf', MultiOutputClassifier(RandomForestClassifier()))       
     ])
