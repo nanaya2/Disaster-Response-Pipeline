@@ -57,6 +57,7 @@ List of Folders and contents:
     - Merge the messages and categories datasets using the common id
     - Split categories into separate category columns
     - Convert category values to just numbers 0 or 1
+    - Transform non binary values (2) to zero
     - Replace category columns with new category columns.
     - Remove duplicates and any non-categorized valued
     - Save the clean dataset into a table disaster_response in a SQLite database disaster_response_pl.pb 
