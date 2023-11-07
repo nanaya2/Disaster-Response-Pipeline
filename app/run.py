@@ -43,20 +43,21 @@ def index():
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
     
-    # extracting categories for heatmap
-    category_map = df.iloc[:,4:].corr().values
-    category_names_map = list(df.iloc[:,4:].columns)
-    
     # For ploting of category counts
     categories =  df[df.columns[4:]]
     category_counts = categories.sum().sort_values(ascending=False)
     category_names = list(category_counts.index)
     
-    # For plotting of Top 10 Categories Distribution in Direct News
+    # For plotting of Top 10 Categories Distribution in News Genre
     news_category = df[df.genre == 'news']
     news_category = news_category[news_category.columns[4:]]
     news_category_counts =  news_category.sum().sort_values(ascending=False)[1:11]
     news_category_names = list(news_category_counts.index)
+        
+    # extracting categories for heatmap of Direct genre
+    direct_category = df[df.genre == 'direct']
+    category_map = direct_category.iloc[:,4:].corr().values
+    category_names_map = list(df.iloc[:,4:].columns)
     
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
@@ -65,7 +66,7 @@ def index():
             'data': [
                 Bar(
                     x=genre_names,
-                    y=genre_counts
+                    y=genre_counts,                
                 )
             ],
 
@@ -78,17 +79,16 @@ def index():
                     'title': "Genre"
                 }
             }
-        },      
-         #Visualization 3: Distribution of Message Categories
-         {
-              'data': [
-                  Bar(
+       },      
+       #Visualization 2: Distribution of Message Categories  
+          {
+            'data': [
+                Scatter(
                       x=category_names,
                       y=category_counts
-                  )
-              ],
-
-              'layout': {
+                )    
+            ],
+            'layout': {
                   'title': 'Distribution of Message Categories',                  
                   'yaxis': {
                       'title': "Counts"
@@ -98,26 +98,27 @@ def index():
                       'padding' : 15,
                       'tickangle': -35
                   }
-              }            
-          },
-          #Visualization 3: Category Correlation Heatmap
-          {
+              } 
+        },
+        #Visualization 3 : Direct Genre Category Correlation Heatmap
+         {
             'data': [
                 Heatmap(
                     x=category_names_map,
                     y=category_names_map[::-1],
-                    z=category_map
+                    z=category_map,
+                    colorscale='Viridis'                   
                 )    
             ],
 
             'layout': {
-                'title': 'Category Correlation Heatmap',
+                'title': 'Direct Genre Category Correlation Heatmap',              
                 'xaxis': {
                     'tickangle': -45
                    }
             }
         },
-          #Visualization 4: Top 10 Categories Distribution in News Genre
+         #Visualization 4: Top 10 Categories Distribution in News Genre
           {
               'data': [
                   Bar(
@@ -128,12 +129,11 @@ def index():
               ],
 
               'layout': {
-                  'title': 'Top 10 Categories Distribution in News Genre',                       
+                  'title': 'Top 10 Categories Distribution in the News Genre',                       
                   'yaxis': {
                       'title': "Top 10 Categories",
                       'tickangle': -35,
-                      'padding' : 15,
-                      'reserveSpace': 'true'
+                      'padding' : 15                  
                   },
                   'xaxis': {
                       'title': "Counts"
