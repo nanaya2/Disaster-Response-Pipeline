@@ -14,7 +14,7 @@ Disaster Response Pipeline Udacity project by Nadia Anaya
 
 ## 1. Objective <a name="Objective"></a>
 
-The objective of this project is to build a web app to analyze manually captured messages from disaster areas and classify them into one or more specific categories. The goal is that this can help emergency workers, medical personal, goverment and others, speed up aid and improve distrubution of all resources to disaster areas.
+The objective of this project is to build a web app to analyze manually captured messages from disaster areas and classify them into one or multiple specific categories. The goal is that this can help emergency workers, medical personal, goverment and others, speed up aid and improve distrubution of all resources to disaster areas.
 
 Appen (formally Figure Eight) has provided a dataset that provides thousands of messages from disaster areas. These messages haven already sorted into categories such as food, water, weather and others totaling 36 categories. This is what will be used to create ETL and ML pipelines for the project.
 
@@ -46,39 +46,46 @@ List of Folders and contents:
     - disaster_response_pl.pb: ETL pipeline output, a SQLite database
 * models
     - train_classifier.py: ML pipeline script to train and export a classifier
-    - disaster_model.pkl: trained classifier pipeline output
+    - disaster_model.pkl: trained classifier pipeline output (file not in GitHub; will be created following the instructions)
 
 ## 4. Analysis <a name="Analysis"></a>
 
 *Build ETL Pipeline*
 
      Data Preparation
-    - Modify the Category csv; split each category into a separate column
-    - Merge Data from the two csv files (messages.csv & categories.csv)
-    - remove duplicates and any non-categorized valued
-    - create SQL database disaster_response_pl.pb for the merged data sets
+    - Load categories and messages datasets
+    - Merge the messages and categories datasets using the common id
+    - Split categories into separate category columns
+    - Convert category values to just numbers 0 or 1
+    - Replace category columns with new category columns.
+    - Remove duplicates and any non-categorized valued
+    - Save the clean dataset into a table disaster_response in a SQLite database disaster_response_pl.pb 
     
      Text Preprocessing
     - Tokenize text 
     - Lemmatize text
 
 *Build ML Pipeline*
+
     - Build Pipeline with countevectorizer and tfidtransformer
     - Seal pipeline with multioutput classifier with Randomforest 
     - Train pipeline
     - Print classification report and accuracy scores
 
 *Improve Model*
+
     - Use GridSearchCV to build better pipeline
+    - Print classification report and accuracy scores
     - Find and use the best parameters
 
 *Export Model*
+
     -  Use pickle to dump the model into disaster_model.pkl
 
 ## 5. Results <a name="Results"></a>
-1. Created an ETL pipeline to read data from two csv files, clean data, and save data into a SQLite database.
-2. Created a machine learning pipeline to train a multi-output classifier on the various categories in the dataset.
-3. Created a Flask app to show data visualization and classify any message that users would enter on the web page.
+* ETL pipeline to read data from two csv files, clean data, and save data into a SQLite database.
+* ML learning pipeline to train a multi-output classifier.
+* Flask app classify any message manually captured on the web page and also display four data visualizations.
 
 ## 6. Instructions <a name="Instructions"></a>
 1. In the root directory, run the ETL pipeline that cleans data and stores in database
@@ -100,9 +107,9 @@ List of Folders and contents:
 ![top10newscat](https://github.com/nanaya2/Disaster-Response-Pipeline/assets/75550215/58d78a6e-fcc5-4ae3-b5fc-53cbcbfe1ce1)
 
 ## 8. Licensing and Acknowledgements <a name="Licensing"></a>
-Thanks to FigureEight for providing the valuable dataset used in this important project. Data can be found here
+Thanks to Appen for providing the valuable dataset used in this important project. Data can be found here
  [Disaster Response Messages](https://www.figure-eight.com/dataset/combined-disaster-response-data/)
 
- Also thanks to Udacity for the code templates which help me complete this project.
+Also thanks to Udacity for the code templates which help me complete this project.
 
 
