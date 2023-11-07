@@ -1,7 +1,7 @@
 # Disaster Response Message Classification Pipeline
 Disaster Response Pipeline Udacity project by Nadia Anaya
 
-## Table of Contents
+# Table of Contents
 
 1. [Objective](#Objective)
 2. [Prerequesites](#Libraries)
